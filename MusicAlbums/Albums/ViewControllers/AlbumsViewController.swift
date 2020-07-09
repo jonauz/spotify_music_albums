@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AlbumsViewController.swift
 //  MusicAlbums
 //
 //  Created by Jonas Simkus on 09/07/2020.
@@ -8,13 +8,10 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class AlbumsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
     }
-
-
 }
-
