@@ -21,6 +21,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textAlignment = .center
         view.font = .boldSystemFont(ofSize: 16)
+        view.textColor = .black
         return view
     }()
 
@@ -29,6 +30,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.textAlignment = .center
         view.font = .systemFont(ofSize: 15)
+        view.textColor = .black
         return view
     }()
 
@@ -73,20 +75,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     }
 
     func fetchImage(imageUrl: String?) {
-        guard let imageUrl = imageUrl, imageUrl.count > 0 else { return }
-        let url = URL(string: imageUrl)!
-
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() { [weak self] in
-                self?.imageView.image = image
-            }
-        }.resume()
+        imageView.downloadImage(imageUrl: imageUrl)
     }
 
     @objc func share() {
@@ -96,7 +85,6 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     override func updateConstraints() {
         imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
         imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
-        imageView.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: contentView.frame.width).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: contentView.frame.width).isActive = true
         imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true

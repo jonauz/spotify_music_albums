@@ -28,7 +28,7 @@ class AlbumsViewModel {
         }
     }
 
-    func getNewlyReleasedAlbums(completion: @escaping () -> Void) {
+    func getNewlyReleasedAlbums(completion: @escaping VoidClosure) {
         guard UserData.shared.isAuthorized else {
             func continueAfterSuccesfulAuth() {
                 getNewlyReleasedAlbums(completion: completion)

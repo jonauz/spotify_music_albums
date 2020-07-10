@@ -19,6 +19,8 @@ protocol APIClientProtocol {
     func authorize(onSuccess: @escaping (AuthResponse) -> Void, onError: @escaping (NetworkError) -> Void)
 
     func getNewlyReleasedAlbums(onSuccess: @escaping (AlbumsResponse) -> Void, onError: @escaping (NetworkError) -> Void)
+
+    func getAlbumDetails(id: String, onSuccess: @escaping (Album) -> Void, onError: @escaping (NetworkError) -> Void)
 }
 
 struct APIClient: APIClientProtocol {
@@ -60,6 +62,15 @@ extension APIClient {
             return
         }
         let request = Self.getURLRequest(url: "/v1/browse/new-releases", accessToken: accessToken)
+        Self.agent.request(request, debug: debug, successHanler: onSuccess, failHandler: onError)
+    }
+
+    func getAlbumDetails(id: String, onSuccess: @escaping (Album) -> Void, onError: @escaping (NetworkError) -> Void) {
+        guard let accessToken = accessToken else {
+            onError(NetworkError(type: .unauthorized))
+            return
+        }
+        let request = Self.getURLRequest(url: "/v1/albums/\(id)", accessToken: accessToken)
         Self.agent.request(request, debug: debug, successHanler: onSuccess, failHandler: onError)
     }
 

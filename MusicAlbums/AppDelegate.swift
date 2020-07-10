@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let newWindow = UIWindow(frame: UIScreen.main.bounds)
-        newWindow.rootViewController = AlbumsViewController()
+        newWindow.rootViewController = UINavigationController(rootViewController: AlbumsViewController())
         window = newWindow
         newWindow.makeKeyAndVisible()
         return true

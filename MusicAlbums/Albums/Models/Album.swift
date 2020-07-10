@@ -23,6 +23,8 @@ struct Album: Codable {
     let totalTracks: Int
     let type: String
     let uri: String
+    let label: String?
+    let tracks: AlbumTrack?
 
     var largeImage: Album.AlbumImage? {
         if let tmpLargeImage = images.first, tmpLargeImage.width == 640 {
@@ -32,7 +34,6 @@ struct Album: Codable {
     }
 
     struct AlbumArtist: Codable {
-
         let id: String
         let href: String
         let name: String
@@ -41,14 +42,16 @@ struct Album: Codable {
     }
 
     struct AlbumExternalUrl: Codable {
-
         let spotify: String
     }
 
     struct AlbumImage: Codable {
-
         let url: String
         let height: Int
         let width: Int
+    }
+
+    struct AlbumTrack: Codable {
+        let total: Int
     }
 }

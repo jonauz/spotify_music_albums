@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlbumsViewController: UIViewController, UICollectionViewDataSource {
+class AlbumsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     lazy var collectionView: UICollectionView = {
         let frame = CGRect.defaultRect
@@ -22,7 +22,7 @@ class AlbumsViewController: UIViewController, UICollectionViewDataSource {
         view.backgroundColor = .white
         view.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: "albumCellIdentifier")
         view.dataSource = self
-        //view.delegate = self
+        view.delegate = self
         return view
     }()
 
@@ -30,12 +30,12 @@ class AlbumsViewController: UIViewController, UICollectionViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Newly Released Albums"
         view.backgroundColor = .white
         view.addSubview(collectionView)
         view.setNeedsUpdateConstraints()
 
         viewModel.getNewlyReleasedAlbums { [weak self] in
-            // TODO
             self?.collectionView.reloadData()
         }
     }
@@ -51,6 +51,15 @@ class AlbumsViewController: UIViewController, UICollectionViewDataSource {
             self?.share(index: indexPath.item)
         }
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        let album = viewModel.albums[indexPath.item]
+
+        let albumViewModel = AlbumDetailsViewModel(id: album.id, albumName: album.name)
+        let albumDetailsViewController = AlbumDetailsViewController(viewModel: albumViewModel)
+        navigationController?.pushViewController(albumDetailsViewController, animated: true)
     }
 
     func share(index: Int) {
