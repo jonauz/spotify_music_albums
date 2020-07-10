@@ -48,7 +48,7 @@ extension APIClient {
     func authorize(onSuccess: @escaping (AuthResponse) -> Void, onError: @escaping (NetworkError) -> Void) {
         var request = URLRequest(url: Self.authBase.appendingPathComponent("/api/token"))
         request.httpMethod = "POST"
-        request.addValue("Basic MjRkZGIyNDY4NWFhNDgzZTliYWU0MmQ0MTNkNDMyYjU6ZDJlYWNkNWY3ZTU2NDE5Mjg3MGFmODI5NmU0NGI0NmY=", forHTTPHeaderField: "Authorization")
+        request.addValue(ClientAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         var bodyComponents = URLComponents()
         bodyComponents.queryItems = [URLQueryItem(name: "grant_type", value: "client_credentials")]

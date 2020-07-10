@@ -10,19 +10,15 @@ import Foundation
 
 struct Album: Codable {
 
+    let id: String
+    let name: String
     let albumType: String
     let artists: [Album.AlbumArtist]
-    //let available_markets: [AnyObject]
     let externalUrls: Album.AlbumExternalUrl
     let href: String
-    let id: String
     var images: [Album.AlbumImage]
-    let name: String
     let releaseDate: String
-    let releaseDatePrecision: String
     let totalTracks: Int
-    let type: String
-    let uri: String
     let label: String?
     let tracks: AlbumTrack?
 
@@ -37,8 +33,6 @@ struct Album: Codable {
         let id: String
         let href: String
         let name: String
-        let uri: String
-        let type: String
     }
 
     struct AlbumExternalUrl: Codable {
